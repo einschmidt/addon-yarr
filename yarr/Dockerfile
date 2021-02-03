@@ -1,6 +1,6 @@
 ARG BUILD_FROM
 # hadolint ignore=DL3006
-FROM ${BUILD_FROM}
+FROM $BUILD_FROM
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -8,7 +8,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Setup base
 # hadolint ignore=DL3003
 RUN \
-    apk add --no-cache --virtual .build-dependencies \
+    set -eux \
+    \
+    && apk add --no-cache --virtual .build-dependencies \
         build-base=0.5-r2 \
         git=2.30.0-r0 \
     \
