@@ -1,37 +1,39 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:9.1.2
-###############################################################################
-# Build yarr
-###############################################################################
-FROM "golang:alpine" as build
-
-# hadolint ignore=DL3018,DL3003
-RUN apk add --no-cache build-base git; \
-  \
-  cd /opt || exit; \
-  \
-  git clone https://github.com/nkanaev/yarr.git; \
-  git clone https://github.com/nkanaev/gofeed.git; \
-  \
-  mv gofeed yarr; \
-  \
-  cd /opt/yarr || exit; \
-  \
-  make build_linux
-
-###############################################################################
-# Build the actual add-on.
-###############################################################################
+ARG BUILD_FROM
 # hadolint ignore=DL3006
 FROM $BUILD_FROM
 
-# Install basics
-# hadolint ignore=DL3018
-RUN set -eux; \
-  apk add --no-cache ca-certificates; \
-  update-ca-certificates
+# Set shell
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Copy yarr build
-COPY --from=build /opt/yarr/_output/linux/yarr /usr/local/bin/yarr
+# Setup base
+# hadolint ignore=DL3003
+RUN \
+    apk add --no-cache --virtual .build-dependencies \
+        build-base=0.5-r2 \
+        git=2.30.0-r0 \
+    \
+    && apk add --no-cache \
+        go=1.15.7-r0 \
+        ca-certificates=20191127-r5 \
+    \
+    && update-ca-certificates \
+    \
+    && git clone --branch "v1.1" --depth=1 \
+        "https://github.com/nkanaev/yarr" /tmp/yarr \
+    \
+    && git clone --branch "v1.1.0" --depth=1 \
+        "https://github.com/nkanaev/gofeed" /tmp/gofeed \
+    \
+    && mv /tmp/gofeed /tmp/yarr \
+    \
+    && cd /tmp/yarr \
+    && make build_linux \
+    && mv /tmp/yarr/_output/linux/yarr /usr/local/bin/yarr \
+    \
+    && rm -f -r /tmp/* \
+    && apk del --no-cache --purge \
+        .build-dependencies \
+        go
 
 # Copy root filesystem
 COPY rootfs /
