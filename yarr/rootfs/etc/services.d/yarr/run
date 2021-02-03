@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: yarr
+# Runs yarr
+# ==============================================================================
+
+bashio::log.info 'Starting yarr...'
+
+# Run yarr
+exec /usr/local/bin/yarr.sh

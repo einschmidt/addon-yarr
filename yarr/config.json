@@ -1,0 +1,27 @@
+{
+  "name": "yarr!",
+  "version": "edge",
+  "slug": "yarr",
+  "description": "Yet another rss reader",
+  "url": "https://github.com/einschmidt/addon-yarr",
+  "ingress": true,
+  "ingress_port": 7071,
+  "panel_icon": "mdi:rss-box",
+  "arch": ["armhf", "armv7", "amd64", "aarch64"],
+  "startup": "application",
+  "ports": {
+    "7070/tcp": null
+  },
+  "ports_description": {
+    "7070/tcp": "Web interface (Not required for Ingress)"
+  },
+  "options": {
+    "log_level": "info"
+  },
+  "schema": {
+    "log_level": "list(trace|debug|info|notice|warning|error|fatal)?"
+  },
+  "environment": {
+    "LOG_FORMAT": "{LEVEL}: {MESSAGE}"
+  }
+}
