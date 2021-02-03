@@ -4,16 +4,17 @@ ARG BUILD_FROM
 ###############################################################################
 FROM "golang:alpine" as build
 
-RUN apk add build-base git; \
+# hadolint ignore=DL3018
+RUN apk add --no-cache build-base git; \
   \
-  cd /opt; \
+  cd /opt || exit; \
   \
   git clone https://github.com/nkanaev/yarr.git; \
   git clone https://github.com/nkanaev/gofeed.git; \
   \
   mv gofeed yarr; \
   \
-  cd yarr; \
+  cd /opt/yarr || exit; \
   \
   make build_linux
 
@@ -24,6 +25,7 @@ RUN apk add build-base git; \
 FROM $BUILD_FROM
 
 # Install basics
+# hadolint ignore=DL3018
 RUN set -eux; \
   apk add --no-cache ca-certificates; \
   update-ca-certificates
@@ -31,16 +33,8 @@ RUN set -eux; \
 # Copy yarr build
 COPY --from=build /opt/yarr/_output/linux/yarr /usr/local/bin/yarr
 
-# Install yarr
-# RUN set -eux; \
-#   curl -J -L -o /tmp/yarr.zip "https://github.com/nkanaev/yarr/releases/download/v1.1/yarr-v1.1-linux32.zip"; \
-#   unzip /tmp/yarr.zip -d /usr/local/bin ; \
-#   rm -rf /tmp/yarr.zip
-
 # Copy root filesystem
 COPY rootfs /
-
-# EXPOSE 7070
 
 # Build arguments
 ARG BUILD_ARCH
