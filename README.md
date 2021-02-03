@@ -1,4 +1,4 @@
-# Home Assistant Add-on: yarr!
+# Home Assistant Add-on: yarr
 
 Yet another rss reader.
 
