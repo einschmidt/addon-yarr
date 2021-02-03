@@ -4,7 +4,7 @@ ARG BUILD_FROM
 ###############################################################################
 FROM "golang:alpine" as build
 
-# hadolint ignore=DL3018
+# hadolint ignore=DL3018,DL3003
 RUN apk add --no-cache build-base git; \
   \
   cd /opt || exit; \
