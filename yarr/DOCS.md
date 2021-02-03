@@ -36,7 +36,7 @@ you are troubleshooting.
 
 ## Known issues and limitations
 
-- This add-on has no user management. As such, please think twice before you
-  make this add-on available to the internet. For example, you could secure
-  any access via basic auth on any web server. Ingress (default) should be
-  fine, as the access is granted via Home Assistant.
+This add-on has no user management. As such, please think twice before you
+make this add-on available to the internet. For example, you could secure
+any access via basic auth on any web server. Ingress (default) should be
+fine, as the access is granted via Home Assistant.
