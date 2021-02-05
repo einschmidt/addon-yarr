@@ -17,10 +17,11 @@ RUN \
     && apk add --no-cache \
         go=1.15.7-r0 \
         ca-certificates=20191127-r5 \
+        nginx=1.18.0-r13 \
     \
     && update-ca-certificates \
     \
-    && git clone --branch "v1.1" --depth=1 \
+    && git clone --branch "master" --depth=1 \
         "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
     && git clone --branch "v1.1.0" --depth=1 \
@@ -33,6 +34,7 @@ RUN \
     && mv /tmp/yarr/_output/linux/yarr /usr/local/bin/yarr \
     \
     && rm -f -r /tmp/* \
+        /etc/nginx \
     && apk del --no-cache --purge \
         .build-dependencies \
         go

@@ -1,0 +1,27 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Add-on: yarr
+# Configures NGINX for use with yarr
+# ==============================================================================
+
+# Generate Ingress configuration
+bashio::var.json \
+    interface "$(bashio::addon.ip_address)" \
+    port "^$(bashio::addon.ingress_port)" \
+    ingress_url "$(bashio::addon.ingress_url)" \
+    entry "$(bashio::addon.ingress_entry)" \
+    | tempio \
+        -template /etc/nginx/templates/ingress.gtpl \
+        -out /etc/nginx/servers/ingress.conf
+
+# Generate direct access configuration, if enabled.
+if bashio::var.has_value "$(bashio::addon.port 80)"; then
+    bashio::config.require.ssl
+    bashio::var.json \
+        certfile "$(bashio::config 'certfile')" \
+        keyfile "$(bashio::config 'keyfile')" \
+        ssl "^$(bashio::config 'ssl')" \
+        | tempio \
+            -template /etc/nginx/templates/direct.gtpl \
+            -out /etc/nginx/servers/direct.conf
+fi
