@@ -10,6 +10,9 @@ main() {
 
   bashio::log.trace "${FUNCNAME[0]}"
 
+  # Show yarr version in log
+  /usr/local/bin/yarr -version
+
   # Set db file path
   db_path="/data/yarr.db"
   if bashio::config.has_value 'db_path'; then
