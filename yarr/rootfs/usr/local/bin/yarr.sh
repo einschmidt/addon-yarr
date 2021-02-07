@@ -17,6 +17,6 @@ main() {
   fi
 
   # Run yarr
-  /usr/local/bin/yarr -addr 127.0.0.1:7070 -db "${db_path}"
+  /usr/local/bin/yarr -addr 127.0.0.1:7070 -db "${db_path}" -ver
 }
 main "$@"
