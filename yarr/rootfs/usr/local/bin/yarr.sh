@@ -5,10 +5,33 @@
 # Launch yarr
 # ------------------------------------------------------------------------------
 
+create_auth() {
+  bashio::log.trace "${FUNCNAME[0]}"
+
+  declare username
+  declare password
+
+  # Check user credentials
+  bashio::config.require.username 'login.username'
+  bashio::config.require.password 'login.password'
+
+  # Load user credentials
+  username=$(bashio::config 'login.username')
+  password=$(bashio::config 'login.password')
+
+  # Create auth file
+  echo "$username:$password" > /usr/local/bin/auth
+
+  bashio::log.info "Created auth file successfully"
+}
+
 main() {
+  bashio::log.trace "${FUNCNAME[0]}"
+
   declare db_path
 
-  bashio::log.trace "${FUNCNAME[0]}"
+  # Create auth
+  create_auth
 
   # Show yarr version in log
   /usr/local/bin/yarr -version
@@ -20,6 +43,9 @@ main() {
   fi
 
   # Run yarr
-  /usr/local/bin/yarr -addr 127.0.0.1:7070 -db "${db_path}"
+  /usr/local/bin/yarr \
+    -addr 127.0.0.1:7070 \
+    -db "${db_path}" \
+    -auth-file /usr/local/bin/auth
 }
 main "$@"

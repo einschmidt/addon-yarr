@@ -21,7 +21,7 @@ RUN \
     \
     && update-ca-certificates \
     \
-    && git clone --branch "v1.2" --depth=1 \
+    && git clone --branch "master" --depth=1 \
         "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
     && git clone --branch "v1.1.0" --depth=1 \
