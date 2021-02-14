@@ -16,12 +16,20 @@
   },
   "map": ["share:rw", "ssl"],
   "options": {
+    "login": {
+      "username": "",
+      "password": ""
+    },
     "ssl": true,
     "certfile": "fullchain.pem",
     "keyfile": "privkey.pem"
   },
   "schema": {
     "log_level": "list(trace|debug|info|notice|warning|error|fatal)?",
+    "login": {
+      "username": "str",
+      "password": "password"
+    },
     "ssl": "bool",
     "certfile": "str",
     "keyfile": "str",
