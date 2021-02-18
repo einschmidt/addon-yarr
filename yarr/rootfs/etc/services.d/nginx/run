@@ -4,7 +4,7 @@
 # Runs the Nginx daemon
 # ==============================================================================
 
-# Wait for thelounge to become available
+# Wait for yarr to become available
 bashio::net.wait_for 7070
 
 bashio::log.info "Starting NGinx..."
