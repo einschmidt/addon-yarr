@@ -7,7 +7,7 @@
   "panel_icon": "mdi:rss-box",
   "arch": ["armhf", "armv7", "amd64", "aarch64"],
   "ports": {
-    "80/tcp": null
+    "80/tcp": 7070
   },
   "ports_description": {
     "80/tcp": "Web interface (Not required for Ingress)"
