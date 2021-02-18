@@ -44,8 +44,8 @@ Sets the login password for yarr. Can't be empty.
 
 ### Option: `ssl`
 
-Enables/Disables SSL (HTTPS) on the web interface of Bookstack
-Panel. Set it `true` to enable it, `false` otherwise.
+Enables/Disables SSL (HTTPS) on the web interface of yarr!
+Set it `true` to enable it, `false` otherwise.
 
 ### Option: `certfile`
 
