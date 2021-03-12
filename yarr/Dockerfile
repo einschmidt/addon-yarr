@@ -24,11 +24,6 @@ RUN \
     && git clone --branch "v1.4" --depth=1 \
         "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
-    && git clone --branch "v1.1.0" --depth=1 \
-        "https://github.com/nkanaev/gofeed" /tmp/gofeed \
-    \
-    && mv /tmp/gofeed /tmp/yarr \
-    \
     && cd /tmp/yarr \
     && make build_linux \
     && mv /tmp/yarr/_output/linux/yarr /usr/local/bin/yarr \
