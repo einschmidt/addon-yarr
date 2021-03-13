@@ -10,12 +10,14 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
     set -eux \
     \
+    && echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
+    \
     && apk add --no-cache --virtual .build-dependencies \
         build-base=0.5-r2 \
         git=2.30.2-r0 \
     \
     && apk add --no-cache \
-        go=1.15.7-r0 \
+        go@edge=1.16.2-r0 \
         ca-certificates=20191127-r5 \
         nginx=1.18.0-r13 \
     \
@@ -24,14 +26,14 @@ RUN \
     && git clone --branch "v1.4" --depth=1 \
         "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
-    && git clone --branch "v1.1.0" --depth=1 \
-        "https://github.com/nkanaev/gofeed" /tmp/gofeed \
+    && rm -f -r /tmp/yarr/src/gofeed \
     \
-    && mv /tmp/gofeed /tmp/yarr \
+    && git clone --branch "master" --depth=1 \
+        "https://github.com/mmcdole/gofeed" /tmp/yarr/src/gofeed \
     \
     && cd /tmp/yarr \
-    && make build_linux \
-    && mv /tmp/yarr/_output/linux/yarr /usr/local/bin/yarr \
+    && make build_default \
+    && mv /tmp/yarr/_output/yarr /usr/local/bin/yarr \
     \
     && rm -f -r /tmp/* \
         /etc/nginx \
