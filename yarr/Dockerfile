@@ -17,19 +17,14 @@ RUN \
         git=2.30.2-r0 \
     \
     && apk add --no-cache \
-        go@edge=1.16.2-r0 \
+        go@edge=1.16.3-r0 \
         ca-certificates=20191127-r5 \
         nginx=1.18.0-r13 \
     \
     && update-ca-certificates \
     \
-    && git clone --branch "v1.4" --depth=1 \
+    && git clone --branch "v2.0" --depth=1 \
         "https://github.com/nkanaev/yarr" /tmp/yarr \
-    \
-    && rm -f -r /tmp/yarr/src/gofeed \
-    \
-    && git clone --branch "master" --depth=1 \
-        "https://github.com/mmcdole/gofeed" /tmp/yarr/src/gofeed \
     \
     && cd /tmp/yarr \
     && make build_default \
