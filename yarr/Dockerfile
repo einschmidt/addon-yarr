@@ -10,20 +10,18 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
     set -eux \
     \
-    && echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories \
-    \
     && apk add --no-cache --virtual .build-dependencies \
         build-base=0.5-r2 \
-        git=2.30.2-r0 \
+        git=2.32.0-r0 \
     \
     && apk add --no-cache \
-        go@edge=1.16.3-r0 \
+        go=1.16.7-r0 \
         ca-certificates=20191127-r5 \
-        nginx=1.18.0-r13 \
+        nginx=1.20.1-r3 \
     \
     && update-ca-certificates \
     \
-    && git clone --branch "v2.0" --depth=1 \
+    && git clone --branch "v2.1" --depth=1 \
         "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
     && cd /tmp/yarr \
