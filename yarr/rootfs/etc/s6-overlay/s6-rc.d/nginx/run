@@ -1,9 +1,13 @@
-#!/usr/bin/execlineb -S0
+#!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # ==============================================================================
 # Home Assistant  Add-on: yarr
-# Take down the S6 supervision tree when Caddy fails
+# Runs the Nginx daemon
 # ==============================================================================
-if { s6-test ${1} -ne 0 }
-if { s6-test ${1} -ne 256 }
 
-s6-svscanctl -t /var/run/s6/services
+# Wait for yarr to become available
+bashio::net.wait_for 7070
+
+bashio::log.info "Starting NGinx..."
+
+exec nginx
