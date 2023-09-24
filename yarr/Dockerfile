@@ -21,8 +21,8 @@ RUN \
     \
     && update-ca-certificates \
     \
-    && git clone --branch "pwa" --depth=1 \
-        "https://github.com/thanhnguyen2187/yarr" /tmp/yarr \
+    && git clone --branch "v2.4" --depth=1 \
+        "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
     && cd /tmp/yarr \
     && make build_default \
