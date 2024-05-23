@@ -15,7 +15,7 @@ RUN \
         git=2.45.1-r0 \
     \
     && apk add --no-cache \
-        go=1.21.10-r0 \
+        go=1.22.3-r0 \
         ca-certificates=20240226-r0 \
         nginx=1.24.0-r16 \
     \
