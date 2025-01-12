@@ -17,7 +17,7 @@ RUN \
     && apk add --no-cache \
         go=1.22.10-r0 \
         ca-certificates=20241121-r1 \
-        nginx=1.26.2-r0 \
+        nginx=1.26.2-r4 \
     \
     && update-ca-certificates \
     \
