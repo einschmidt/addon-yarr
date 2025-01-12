@@ -12,7 +12,7 @@ RUN \
     \
     && apk add --no-cache --virtual .build-dependencies \
         build-base=0.5-r3 \
-        git=2.45.2-r0 \
+        git=2.47.1-r0 \
     \
     && apk add --no-cache \
         go=1.22.10-r0 \
