@@ -5,6 +5,17 @@ FROM $BUILD_FROM
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Build arguments
+ARG BUILD_ARCH
+ARG BUILD_DATE
+ARG BUILD_DESCRIPTION
+ARG BUILD_NAME
+ARG BUILD_REF
+ARG BUILD_REPOSITORY
+ARG BUILD_VERSION
+
+ENV GOARCH=${BUILD_ARCH}
+
 # Setup base
 # hadolint ignore=DL3003
 RUN \
@@ -28,7 +39,7 @@ RUN \
     "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
     && cd /tmp/yarr \
-    && CC="gcc" CGO_CFLAGS="-march=native" make build_default \
+    && make build_default \
     && mv /tmp/yarr/_output/yarr /usr/local/bin/yarr \
     \
     && rm -f -r /tmp/* \
@@ -40,14 +51,6 @@ RUN \
 # Copy root filesystem
 COPY rootfs /
 
-# Build arguments
-ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_DESCRIPTION
-ARG BUILD_NAME
-ARG BUILD_REF
-ARG BUILD_REPOSITORY
-ARG BUILD_VERSION
 
 # Labels
 LABEL \
