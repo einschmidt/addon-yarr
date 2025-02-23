@@ -28,7 +28,7 @@ RUN \
     "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
     && cd /tmp/yarr \
-    && CGO_ENABLED=0 make build_default \
+    && CGO_CFLAGS="-march=native" make build_default \
     && mv /tmp/yarr/_output/yarr /usr/local/bin/yarr \
     \
     && rm -f -r /tmp/* \
