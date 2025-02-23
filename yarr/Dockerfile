@@ -12,12 +12,12 @@ RUN \
     \
     && apk add --no-cache --virtual .build-dependencies \
         build-base=0.5-r3 \
-        git=2.40.1-r0 \
+        git=2.47.2-r0 \
     \
     && apk add --no-cache \
-        go=1.20.10-r0 \
-        ca-certificates=20230506-r0 \
-        nginx=1.24.0-r7 \
+        go=1.23.6-r0 \
+        ca-certificates=20241121-r1 \
+        nginx=1.26.2-r4 \
     \
     && update-ca-certificates \
     \
