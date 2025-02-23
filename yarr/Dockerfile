@@ -11,31 +11,31 @@ RUN \
     set -eux \
     \
     && apk add --no-cache \
-        musl=1.2.4-r3 \
+    musl=1.2.4-r3 \
     \
     && apk add --no-cache --virtual .build-dependencies \
-        build-base=0.5-r3 \
-        git=2.40.4-r0 \
+    build-base=0.5-r3 \
+    git=2.40.4-r0 \
     \
     && apk add --no-cache \
-        go=1.20.11-r0 \
-        ca-certificates=20241121-r1 \
-        nginx=1.24.0-r7 \
+    go=1.20.11-r0 \
+    ca-certificates=20241121-r1 \
+    nginx=1.24.0-r7 \
     \
     && update-ca-certificates \
     \
     && git clone --depth=1 \
-        "https://github.com/nkanaev/yarr" /tmp/yarr \
+    "https://github.com/nkanaev/yarr" /tmp/yarr \
     \
     && cd /tmp/yarr \
-    && make build_default \
+    && CGO_ENABLED=0 make build_default \
     && mv /tmp/yarr/_output/yarr /usr/local/bin/yarr \
     \
     && rm -f -r /tmp/* \
-        /etc/nginx \
+    /etc/nginx \
     && apk del --no-cache --purge \
-        .build-dependencies \
-        go
+    .build-dependencies \
+    go
 
 # Copy root filesystem
 COPY rootfs /
