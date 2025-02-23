@@ -10,8 +10,10 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
     set -eux \
     \
-    && apk add --no-cache --virtual .build-dependencies \
+    && apk add --no-cache \
         musl=1.2.4-r3 \
+    \
+    && apk add --no-cache --virtual .build-dependencies \
         build-base=0.5-r3 \
         git=2.40.4-r0 \
     \
