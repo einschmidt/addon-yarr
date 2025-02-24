@@ -5,17 +5,6 @@ FROM $BUILD_FROM
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Build arguments
-ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_DESCRIPTION
-ARG BUILD_NAME
-ARG BUILD_REF
-ARG BUILD_REPOSITORY
-ARG BUILD_VERSION
-
-ARG BUILD_ARCH
-ENV GOARCH=$(if [ "$BUILD_ARCH" = "aarch64" ]; then echo "arm64"; elif [ "$BUILD_ARCH" = "amd64" ]; then echo "amd64"; else echo "$BUILD_ARCH"; fi)
 
 # Setup base
 # hadolint ignore=DL3003
@@ -52,6 +41,14 @@ RUN \
 # Copy root filesystem
 COPY rootfs /
 
+# Build arguments
+ARG BUILD_ARCH
+ARG BUILD_DATE
+ARG BUILD_DESCRIPTION
+ARG BUILD_NAME
+ARG BUILD_REF
+ARG BUILD_REPOSITORY
+ARG BUILD_VERSION
 
 # Labels
 LABEL \
