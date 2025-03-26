@@ -19,6 +19,15 @@
     {
       "customType": "regex",
       "fileMatch": ["/Dockerfile$"],
+      "matchStrings": [
+        "ARG YARR_VERSION=[\"']?(?<currentValue>v[\\d.]+)[\"']?"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "nkanaev/yarr"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["/Dockerfile$"],
       "matchStringsStrategy": "any",
       "matchStrings": [
         "\\s\\s(?<package>[a-z0-9-]+)=(?<currentValue>[a-z0-9-_.]+)\\s+"
