@@ -1,10 +1,13 @@
 ARG BUILD_FROM
 # hadolint ignore=DL3006
 FROM $BUILD_FROM
+ARG BUILD_ARCH
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Set yarr version
+ARG YARR_VERSION="v2.5"
 
 # Setup base
 # hadolint ignore=DL3003
@@ -12,31 +15,19 @@ RUN \
     set -eux \
     \
     && apk add --no-cache \
-    musl=1.2.4-r3 \
-    \
-    && apk add --no-cache --virtual .build-dependencies \
-    build-base=0.5-r3 \
-    git=2.40.4-r0 \
-    \
-    && apk add --no-cache \
-    go=1.20.11-r0 \
-    ca-certificates=20241121-r1 \
     nginx=1.24.0-r7 \
     \
-    && update-ca-certificates \
+    && if [[ "$BUILD_ARCH" = "aarch64" ]]; then ARCH="arm64"; fi \
+    && if [[ "$BUILD_ARCH" = "amd64" ]]; then ARCH="amd64"; fi \
+    && if [[ "$BUILD_ARCH" = "armhf" ]]; then ARCH="armv7"; fi \
+    && if [[ "$BUILD_ARCH" = "armv7" ]]; then ARCH="armv7"; fi \
     \
-    && git clone --depth=1 \
-    "https://github.com/nkanaev/yarr" /tmp/yarr \
-    \
-    && cd /tmp/yarr \
-    && make build_default \
-    && mv /tmp/yarr/_output/yarr /usr/local/bin/yarr \
+    && curl -L -o /tmp/yarr.zip "https://github.com/nkanaev/yarr/releases/download/${YARR_VERSION}/yarr_linux_${ARCH}.zip" \
+    && unzip /tmp/yarr.zip -d /usr/local/bin/ \
+    && chmod +x /usr/local/bin/yarr \
     \
     && rm -f -r /tmp/* \
-    /etc/nginx \
-    && apk del --no-cache --purge \
-    .build-dependencies \
-    go
+    /etc/nginx
 
 # Copy root filesystem
 COPY rootfs /
