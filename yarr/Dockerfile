@@ -15,7 +15,7 @@ RUN \
     set -eux \
     \
     && apk add --no-cache \
-    nginx=1.24.0-r7 \
+    nginx=1.26.3-r0 \
     \
     && if [[ "$BUILD_ARCH" = "aarch64" ]]; then ARCH="arm64"; fi \
     && if [[ "$BUILD_ARCH" = "amd64" ]]; then ARCH="amd64"; fi \
