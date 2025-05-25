@@ -15,6 +15,8 @@ ports:
 ports_description:
   80/tcp: Web interface
 init: false
+ingress: true
+ingress_stream: true
 map:
   - "share:rw"
   - ssl
