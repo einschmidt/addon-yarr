@@ -45,7 +45,7 @@ main() {
 
   # Run yarr
   /usr/local/bin/yarr \
-    -addr 127.0.0.1:7070 \
+    -addr 127.0.0.1:7099 \
     -db "${db_path}" \
     -auth-file /usr/local/bin/auth
 }
