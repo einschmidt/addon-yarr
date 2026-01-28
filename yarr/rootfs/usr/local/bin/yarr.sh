@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bashio
 # shellcheck shell=bash
 # ==============================================================================
-# Home Assistant Add-on: yarr
+# Home Assistant App: yarr
 #
 # Launch yarr
 # ------------------------------------------------------------------------------
